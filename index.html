@@ -22,10 +22,29 @@
                 <div class="result"><p class="js-result">RESULT HERE</p></div>
                 <div class="selected-moves"><p class="js-selected-moves">SELECTED MOVES HERE</p></div>
                 <div class="score"><p class="js-score">WINS : 0 | LOSS : 0 | TIE : 0</p></div>
-                <div class="reset"><button onclick="reset()"  class="reset-score">RESET SCORE</button></div>
+                <div class="reset"><button onclick="reset()"  class="reset-score">RESET SCORE</button>
+                    <button onclick="
+                            autoplay()
+                        "class="autoplay">AUTO PLAY</button></div>
             </div>
         </div>
         <script>
+            let autoPlaying=false;
+            let intervalId;
+            function autoplay(){
+                if (!autoPlaying){
+                    intervalId= setInterval(function(){
+                    const choice=computerMove();
+                    results(choice);
+                },1000);
+                autoPlaying=true;
+                }
+                else{
+                    clearInterval(intervalId);
+                    autoPlaying=false;
+                }
+                
+            }
             wins = Number(localStorage.getItem('wins')) || 0;
             loss = Number(localStorage.getItem('loss')) || 0;
             tie = Number(localStorage.getItem('tie')) || 0;
